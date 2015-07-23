@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WorkloadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="audit_edit">
+          <Key>
+            <PropertyRef Name="auid" />
+          </Key>
+          <Property Name="auid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="style" Type="nvarchar" MaxLength="50" />
+          <Property Name="prj" Type="nvarchar" MaxLength="50" />
+          <Property Name="staff" Type="nvarchar" MaxLength="20" />
+          <Property Name="editor" Type="nvarchar" MaxLength="20" />
+          <Property Name="ctime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="budget_plan">
+          <Key>
+            <PropertyRef Name="bgid" />
+          </Key>
+          <Property Name="bgid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staff" Type="nvarchar" MaxLength="20" />
+          <Property Name="prj" Type="nvarchar" MaxLength="50" />
+          <Property Name="budget" Type="int" />
+          <Property Name="comt" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Login_auth">
+          <Key>
+            <PropertyRef Name="auid" />
+          </Key>
+          <Property Name="auid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empid" Type="nvarchar" MaxLength="20" />
+          <Property Name="authority" Type="int" />
+        </EntityType>
+        <EntityType Name="MonthData">
+          <Key>
+            <PropertyRef Name="MonthPK" />
+          </Key>
+          <Property Name="MonthPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nchar" MaxLength="10" />
+          <Property Name="Month" Type="nchar" MaxLength="10" />
+          <Property Name="Week" Type="int" />
+        </EntityType>
+        <EntityType Name="PrjData">
+          <Key>
+            <PropertyRef Name="PrjNo" />
+          </Key>
+          <Property Name="PrjNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrjE1" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrjName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PrjStart" Type="int" />
+          <Property Name="PrjEnd" Type="int" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="20" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Worksheet">
+          <Key>
+            <PropertyRef Name="WorkID" />
+          </Key>
+          <Property Name="WorkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prj" Type="nvarchar" MaxLength="50" />
+          <Property Name="Staff" Type="nvarchar" MaxLength="20" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Hour" Type="int" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Workload.dbo.V_Empdata' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="V_Empdata">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Unit" Type="nchar" MaxLength="10" />
+          <Property Name="Section" Type="nchar" MaxLength="10" />
+          <Property Name="CN_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="EN_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityContainer Name="WorkloadModelStoreContainer">
+          <EntitySet Name="audit_edit" EntityType="Self.audit_edit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="budget_plan" EntityType="Self.budget_plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login_auth" EntityType="Self.Login_auth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthData" EntityType="Self.MonthData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrjData" EntityType="Self.PrjData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worksheet" EntityType="Self.Worksheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_Empdata" EntityType="Self.V_Empdata" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Empdata].[EmpID] AS [EmpID], 
+    [V_Empdata].[Unit] AS [Unit], 
+    [V_Empdata].[Section] AS [Section], 
+    [V_Empdata].[CN_Name] AS [CN_Name], 
+    [V_Empdata].[EN_Name] AS [EN_Name], 
+    [V_Empdata].[Email] AS [Email], 
+    [V_Empdata].[Pwd] AS [Pwd], 
+    [V_Empdata].[Status] AS [Status]
+    FROM [dbo].[V_Empdata] AS [V_Empdata]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WorkloadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="audit_edit">
+          <Key>
+            <PropertyRef Name="auid" />
+          </Key>
+          <Property Name="auid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="style" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="staff" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ctime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="budget_plan">
+          <Key>
+            <PropertyRef Name="bgid" />
+          </Key>
+          <Property Name="bgid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staff" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="prj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="budget" Type="Int32" />
+          <Property Name="comt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Login_auth">
+          <Key>
+            <PropertyRef Name="auid" />
+          </Key>
+          <Property Name="auid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="authority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MonthData">
+          <Key>
+            <PropertyRef Name="MonthPK" />
+          </Key>
+          <Property Name="MonthPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Week" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PrjData">
+          <Key>
+            <PropertyRef Name="PrjNo" />
+          </Key>
+          <Property Name="PrjNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrjE1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrjName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PrjStart" Type="Int32" />
+          <Property Name="PrjEnd" Type="Int32" />
+          <Property Name="Editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Worksheet">
+          <Key>
+            <PropertyRef Name="WorkID" />
+          </Key>
+          <Property Name="WorkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Staff" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Hour" Type="Int32" />
+          <Property Name="Editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_Empdata">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Section" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CN_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EN_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="WorkloadEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="audit_edit" EntityType="Self.audit_edit" />
+          <EntitySet Name="budget_plan" EntityType="Self.budget_plan" />
+          <EntitySet Name="Login_auth" EntityType="Self.Login_auth" />
+          <EntitySet Name="MonthData" EntityType="Self.MonthData" />
+          <EntitySet Name="PrjData" EntityType="Self.PrjData" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Worksheet" EntityType="Self.Worksheet" />
+          <EntitySet Name="V_Empdata" EntityType="Self.V_Empdata" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WorkloadModelStoreContainer" CdmEntityContainer="WorkloadEntities">
+          <EntitySetMapping Name="audit_edit">
+            <EntityTypeMapping TypeName="WorkloadModel.audit_edit">
+              <MappingFragment StoreEntitySet="audit_edit">
+                <ScalarProperty Name="auid" ColumnName="auid" />
+                <ScalarProperty Name="style" ColumnName="style" />
+                <ScalarProperty Name="prj" ColumnName="prj" />
+                <ScalarProperty Name="staff" ColumnName="staff" />
+                <ScalarProperty Name="editor" ColumnName="editor" />
+                <ScalarProperty Name="ctime" ColumnName="ctime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="budget_plan">
+            <EntityTypeMapping TypeName="WorkloadModel.budget_plan">
+              <MappingFragment StoreEntitySet="budget_plan">
+                <ScalarProperty Name="bgid" ColumnName="bgid" />
+                <ScalarProperty Name="staff" ColumnName="staff" />
+                <ScalarProperty Name="prj" ColumnName="prj" />
+                <ScalarProperty Name="budget" ColumnName="budget" />
+                <ScalarProperty Name="comt" ColumnName="comt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login_auth">
+            <EntityTypeMapping TypeName="WorkloadModel.Login_auth">
+              <MappingFragment StoreEntitySet="Login_auth">
+                <ScalarProperty Name="auid" ColumnName="auid" />
+                <ScalarProperty Name="empid" ColumnName="empid" />
+                <ScalarProperty Name="authority" ColumnName="authority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthData">
+            <EntityTypeMapping TypeName="WorkloadModel.MonthData">
+              <MappingFragment StoreEntitySet="MonthData">
+                <ScalarProperty Name="MonthPK" ColumnName="MonthPK" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrjData">
+            <EntityTypeMapping TypeName="WorkloadModel.PrjData">
+              <MappingFragment StoreEntitySet="PrjData">
+                <ScalarProperty Name="PrjNo" ColumnName="PrjNo" />
+                <ScalarProperty Name="PrjE1" ColumnName="PrjE1" />
+                <ScalarProperty Name="PrjName" ColumnName="PrjName" />
+                <ScalarProperty Name="PrjStart" ColumnName="PrjStart" />
+                <ScalarProperty Name="PrjEnd" ColumnName="PrjEnd" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WorkloadModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worksheet">
+            <EntityTypeMapping TypeName="WorkloadModel.Worksheet">
+              <MappingFragment StoreEntitySet="Worksheet">
+                <ScalarProperty Name="WorkID" ColumnName="WorkID" />
+                <ScalarProperty Name="Prj" ColumnName="Prj" />
+                <ScalarProperty Name="Staff" ColumnName="Staff" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Empdata">
+            <EntityTypeMapping TypeName="WorkloadModel.V_Empdata">
+              <MappingFragment StoreEntitySet="V_Empdata">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="CN_Name" ColumnName="CN_Name" />
+                <ScalarProperty Name="EN_Name" ColumnName="EN_Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
