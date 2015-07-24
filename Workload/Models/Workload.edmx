@@ -245,6 +245,7 @@
           <Property Name="auid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="empid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="authority" Type="Int32" />
+          <NavigationProperty Name="V_Empdata" Relationship="WorkloadModel.V_EmpdataLogin_auth" FromRole="Login_auth" ToRole="V_Empdata" />
         </EntityType>
         <EntityType Name="MonthData">
           <Key>
@@ -274,6 +275,7 @@
           <NavigationProperty Name="MonthData" Relationship="Self.FK_PrjData_MonthData" FromRole="PrjData" ToRole="MonthData" />
           <NavigationProperty Name="MonthData1" Relationship="Self.FK_PrjData_MonthData1" FromRole="PrjData" ToRole="MonthData" />
           <NavigationProperty Name="Worksheet" Relationship="Self.FK_Worksheet_PrjData" FromRole="PrjData" ToRole="Worksheet" />
+          <NavigationProperty Name="V_Empdata" Relationship="WorkloadModel.V_EmpdataPrjData" FromRole="PrjData" ToRole="V_Empdata" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -297,6 +299,8 @@
           <Property Name="Editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MonthData" Relationship="Self.FK_Worksheet_MonthData" FromRole="Worksheet" ToRole="MonthData" />
           <NavigationProperty Name="PrjData" Relationship="Self.FK_Worksheet_PrjData" FromRole="Worksheet" ToRole="PrjData" />
+          <NavigationProperty Name="V_Empdata" Relationship="WorkloadModel.V_EmpdataWorksheet" FromRole="Worksheet" ToRole="V_Empdata" />
+          <NavigationProperty Name="V_Empdata1" Relationship="WorkloadModel.V_EmpdataWorksheet1" FromRole="Worksheet" ToRole="V_Empdata" />
         </EntityType>
         <EntityType Name="V_Empdata">
           <Key>
@@ -310,8 +314,12 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="PrjData" Relationship="WorkloadModel.V_EmpdataPrjData" FromRole="V_Empdata" ToRole="PrjData" />
+          <NavigationProperty Name="Login_auth" Relationship="WorkloadModel.V_EmpdataLogin_auth" FromRole="V_Empdata" ToRole="Login_auth" />
           <NavigationProperty Name="audit_edit" Relationship="WorkloadModel.V_Empdataaudit_edit" FromRole="V_Empdata" ToRole="audit_edit" />
           <NavigationProperty Name="audit_edit1" Relationship="WorkloadModel.V_Empdataaudit_edit1" FromRole="V_Empdata" ToRole="audit_edit" />
+          <NavigationProperty Name="Worksheet" Relationship="WorkloadModel.V_EmpdataWorksheet" FromRole="V_Empdata" ToRole="Worksheet" />
+          <NavigationProperty Name="Worksheet1" Relationship="WorkloadModel.V_EmpdataWorksheet1" FromRole="V_Empdata" ToRole="Worksheet" />
         </EntityType>
         <Association Name="FK_audit_edit_PrjData">
           <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
@@ -418,6 +426,14 @@
             <End Role="PrjData" EntitySet="PrjData" />
             <End Role="Worksheet" EntitySet="Worksheet" />
           </AssociationSet>
+          <AssociationSet Name="V_EmpdataPrjData" Association="WorkloadModel.V_EmpdataPrjData">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="PrjData" EntitySet="PrjData" />
+          </AssociationSet>
+          <AssociationSet Name="V_EmpdataLogin_auth" Association="WorkloadModel.V_EmpdataLogin_auth">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="Login_auth" EntitySet="Login_auth" />
+          </AssociationSet>
           <AssociationSet Name="V_Empdataaudit_edit" Association="WorkloadModel.V_Empdataaudit_edit">
             <End Role="V_Empdata" EntitySet="V_Empdata" />
             <End Role="audit_edit" EntitySet="audit_edit" />
@@ -426,7 +442,39 @@
             <End Role="V_Empdata" EntitySet="V_Empdata" />
             <End Role="audit_edit" EntitySet="audit_edit" />
           </AssociationSet>
+          <AssociationSet Name="V_EmpdataWorksheet" Association="WorkloadModel.V_EmpdataWorksheet">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
+          <AssociationSet Name="V_EmpdataWorksheet1" Association="WorkloadModel.V_EmpdataWorksheet1">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="V_EmpdataPrjData">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.PrjData" Role="PrjData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="PrjData">
+              <PropertyRef Name="Editor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="V_EmpdataLogin_auth">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.Login_auth" Role="Login_auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Login_auth">
+              <PropertyRef Name="empid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="V_Empdataaudit_edit">
           <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
           <End Type="WorkloadModel.audit_edit" Role="audit_edit" Multiplicity="*" />
@@ -448,6 +496,30 @@
             </Principal>
             <Dependent Role="audit_edit">
               <PropertyRef Name="staff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="V_EmpdataWorksheet">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.Worksheet" Role="Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Editor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="V_EmpdataWorksheet1">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.Worksheet" Role="Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Staff" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

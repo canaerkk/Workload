@@ -16,8 +16,12 @@ namespace Workload.Models
     {
         public V_Empdata()
         {
+            this.PrjData = new HashSet<PrjData>();
+            this.Login_auth = new HashSet<Login_auth>();
             this.audit_edit = new HashSet<audit_edit>();
             this.audit_edit1 = new HashSet<audit_edit>();
+            this.Worksheet = new HashSet<Worksheet>();
+            this.Worksheet1 = new HashSet<Worksheet>();
         }
     
         public string EmpID { get; set; }
@@ -29,7 +33,11 @@ namespace Workload.Models
         public string Pwd { get; set; }
         public Nullable<int> Status { get; set; }
     
+        public virtual ICollection<PrjData> PrjData { get; set; }
+        public virtual ICollection<Login_auth> Login_auth { get; set; }
         public virtual ICollection<audit_edit> audit_edit { get; set; }
         public virtual ICollection<audit_edit> audit_edit1 { get; set; }
+        public virtual ICollection<Worksheet> Worksheet { get; set; }
+        public virtual ICollection<Worksheet> Worksheet1 { get; set; }
     }
 }

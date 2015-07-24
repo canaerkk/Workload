@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PrjDatasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -375,16 +376,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\PrjDatas\Create.cshtml" />
-    <Content Include="Views\PrjDatas\Delete.cshtml" />
-    <Content Include="Views\PrjDatas\Details.cshtml" />
-    <Content Include="Views\PrjDatas\Edit.cshtml" />
-    <Content Include="Views\PrjDatas\Index.cshtml" />
     <Content Include="Views\MonthDatas\Create.cshtml" />
     <Content Include="Views\MonthDatas\Delete.cshtml" />
     <Content Include="Views\MonthDatas\Details.cshtml" />
     <Content Include="Views\MonthDatas\Edit.cshtml" />
     <Content Include="Views\MonthDatas\Index.cshtml" />
+    <Content Include="Views\PrjDatas\Create.cshtml" />
+    <Content Include="Views\PrjDatas\Delete.cshtml" />
+    <Content Include="Views\PrjDatas\Details.cshtml" />
+    <Content Include="Views\PrjDatas\Edit.cshtml" />
+    <Content Include="Views\PrjDatas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

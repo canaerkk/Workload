@@ -17,5 +17,7 @@ namespace Workload.Models
         public int auid { get; set; }
         public string empid { get; set; }
         public Nullable<int> authority { get; set; }
+    
+        public virtual V_Empdata V_Empdata { get; set; }
     }
 }

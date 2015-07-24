@@ -23,5 +23,7 @@ namespace Workload.Models
     
         public virtual MonthData MonthData { get; set; }
         public virtual PrjData PrjData { get; set; }
+        public virtual V_Empdata V_Empdata { get; set; }
+        public virtual V_Empdata V_Empdata1 { get; set; }
     }
 }

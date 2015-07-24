@@ -34,5 +34,6 @@ namespace Workload.Models
         public virtual MonthData MonthData { get; set; }
         public virtual MonthData MonthData1 { get; set; }
         public virtual ICollection<Worksheet> Worksheet { get; set; }
+        public virtual V_Empdata V_Empdata { get; set; }
     }
 }

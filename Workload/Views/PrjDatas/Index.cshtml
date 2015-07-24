@@ -12,22 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PrjE1)
+            LocalNo.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PrjName)
+            E1 No.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PrjStart)
+            專案名稱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PrjEnd)
+            專案狀態
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Editor)
+            起始年月
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            結束年月
+        </th>
+        <th>
+            Editor
         </th>
         <th></th>
     </tr>
@@ -35,22 +38,35 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem=>item.PrjNo)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.PrjE1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PrjName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PrjStart)
+            @*@Html.DisplayFor(modelItem => item.Status)*@
+            @if (item.Status==1)
+            {
+                @:進行中
+            }
+            else
+            {
+                @:已結案
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PrjEnd)
+            @(Html.DisplayFor(modelItem => item.MonthData.Year))年
+            @(Html.DisplayFor(modelItem => item.MonthData.Month))月
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Editor)
+            @(Html.DisplayFor(modelItem => item.MonthData1.Year))年
+            @(Html.DisplayFor(modelItem => item.MonthData1.Month))月
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.V_Empdata.EN_Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PrjNo }) |
