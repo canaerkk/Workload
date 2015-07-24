@@ -13,10 +13,10 @@ namespace Workload.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WorkloadEntities : DbContext
+    public partial class WorkloadEntities1 : DbContext
     {
-        public WorkloadEntities()
-            : base("name=WorkloadEntities")
+        public WorkloadEntities1()
+            : base("name=WorkloadEntities1")
         {
         }
     

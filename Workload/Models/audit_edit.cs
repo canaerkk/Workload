@@ -20,5 +20,9 @@ namespace Workload.Models
         public string staff { get; set; }
         public string editor { get; set; }
         public Nullable<System.DateTime> ctime { get; set; }
+    
+        public virtual PrjData PrjData { get; set; }
+        public virtual V_Empdata V_Empdata { get; set; }
+        public virtual V_Empdata V_Empdata1 { get; set; }
     }
 }

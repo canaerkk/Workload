@@ -34,5 +34,8 @@ namespace Workload.Models
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string Pwd { get; set; }
         public Nullable<int> Status { get; set; }
+    
+        public virtual ICollection<audit_edit> audit_edit { get; set; }
+        public virtual ICollection<audit_edit> audit_edit1 { get; set; }
     }
 }

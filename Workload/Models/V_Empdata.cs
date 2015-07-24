@@ -14,6 +14,12 @@ namespace Workload.Models
     
     public partial class V_Empdata
     {
+        public V_Empdata()
+        {
+            this.audit_edit = new HashSet<audit_edit>();
+            this.audit_edit1 = new HashSet<audit_edit>();
+        }
+    
         public string EmpID { get; set; }
         public string Unit { get; set; }
         public string Section { get; set; }
@@ -22,5 +28,8 @@ namespace Workload.Models
         public string Email { get; set; }
         public string Pwd { get; set; }
         public Nullable<int> Status { get; set; }
+    
+        public virtual ICollection<audit_edit> audit_edit { get; set; }
+        public virtual ICollection<audit_edit> audit_edit1 { get; set; }
     }
 }

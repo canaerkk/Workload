@@ -1,0 +1,66 @@
+﻿@model Workload.Models.PrjData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PrjData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PrjE1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrjE1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrjName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrjName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrjStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrjStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrjEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrjEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Editor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Editor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PrjNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

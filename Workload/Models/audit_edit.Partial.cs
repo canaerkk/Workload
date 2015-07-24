@@ -26,5 +26,9 @@ namespace Workload.Models
         [StringLength(20, ErrorMessage="欄位長度不得大於 20 個字元")]
         public string editor { get; set; }
         public Nullable<System.DateTime> ctime { get; set; }
+    
+        public virtual PrjData PrjData { get; set; }
+        public virtual V_Empdata V_Empdata { get; set; }
+        public virtual V_Empdata V_Empdata1 { get; set; }
     }
 }

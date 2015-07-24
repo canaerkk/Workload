@@ -21,5 +21,7 @@ namespace Workload.Models
         public string prj { get; set; }
         public Nullable<int> budget { get; set; }
         public string comt { get; set; }
+    
+        public virtual PrjData PrjData { get; set; }
     }
 }

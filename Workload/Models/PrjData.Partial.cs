@@ -27,5 +27,11 @@ namespace Workload.Models
         [StringLength(20, ErrorMessage="欄位長度不得大於 20 個字元")]
         public string Editor { get; set; }
         public Nullable<int> Status { get; set; }
+    
+        public virtual ICollection<audit_edit> audit_edit { get; set; }
+        public virtual ICollection<budget_plan> budget_plan { get; set; }
+        public virtual MonthData MonthData { get; set; }
+        public virtual MonthData MonthData1 { get; set; }
+        public virtual ICollection<Worksheet> Worksheet { get; set; }
     }
 }

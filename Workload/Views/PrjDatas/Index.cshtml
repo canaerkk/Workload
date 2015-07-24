@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Workload.Models.PrjData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PrjE1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrjName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrjStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrjEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Editor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrjE1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrjName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrjStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrjEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Editor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PrjNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PrjNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PrjNo })
+        </td>
+    </tr>
+}
+
+</table>

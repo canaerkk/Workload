@@ -20,5 +20,8 @@ namespace Workload.Models
         public Nullable<int> Month { get; set; }
         public Nullable<int> Hour { get; set; }
         public string Editor { get; set; }
+    
+        public virtual MonthData MonthData { get; set; }
+        public virtual PrjData PrjData { get; set; }
     }
 }

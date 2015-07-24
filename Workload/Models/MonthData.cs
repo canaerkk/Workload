@@ -14,9 +14,20 @@ namespace Workload.Models
     
     public partial class MonthData
     {
+        public MonthData()
+        {
+            this.PrjData = new HashSet<PrjData>();
+            this.PrjData1 = new HashSet<PrjData>();
+            this.Worksheet = new HashSet<Worksheet>();
+        }
+    
         public int MonthPK { get; set; }
         public string Year { get; set; }
         public string Month { get; set; }
         public Nullable<int> Week { get; set; }
+    
+        public virtual ICollection<PrjData> PrjData { get; set; }
+        public virtual ICollection<PrjData> PrjData1 { get; set; }
+        public virtual ICollection<Worksheet> Worksheet { get; set; }
     }
 }

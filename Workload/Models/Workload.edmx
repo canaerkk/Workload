@@ -91,6 +91,78 @@
           <Property Name="Pwd" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <Association Name="FK_audit_edit_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="audit_edit" Type="Self.audit_edit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="audit_edit">
+              <PropertyRef Name="prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_budget_plan_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="budget_plan" Type="Self.budget_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="budget_plan">
+              <PropertyRef Name="prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjData_MonthData">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="PrjData">
+              <PropertyRef Name="PrjStart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjData_MonthData1">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="PrjData">
+              <PropertyRef Name="PrjEnd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worksheet_MonthData">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="Worksheet" Type="Self.Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Month" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worksheet_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="Worksheet" Type="Self.Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WorkloadModelStoreContainer">
           <EntitySet Name="audit_edit" EntityType="Self.audit_edit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="budget_plan" EntityType="Self.budget_plan" Schema="dbo" store:Type="Tables" />
@@ -111,6 +183,30 @@
     [V_Empdata].[Status] AS [Status]
     FROM [dbo].[V_Empdata] AS [V_Empdata]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_audit_edit_PrjData" Association="Self.FK_audit_edit_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="audit_edit" EntitySet="audit_edit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_budget_plan_PrjData" Association="Self.FK_budget_plan_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="budget_plan" EntitySet="budget_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjData_MonthData" Association="Self.FK_PrjData_MonthData">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="PrjData" EntitySet="PrjData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjData_MonthData1" Association="Self.FK_PrjData_MonthData1">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="PrjData" EntitySet="PrjData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worksheet_MonthData" Association="Self.FK_Worksheet_MonthData">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worksheet_PrjData" Association="Self.FK_Worksheet_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -127,6 +223,9 @@
           <Property Name="staff" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ctime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PrjData" Relationship="Self.FK_audit_edit_PrjData" FromRole="audit_edit" ToRole="PrjData" />
+          <NavigationProperty Name="V_Empdata" Relationship="WorkloadModel.V_Empdataaudit_edit" FromRole="audit_edit" ToRole="V_Empdata" />
+          <NavigationProperty Name="V_Empdata1" Relationship="WorkloadModel.V_Empdataaudit_edit1" FromRole="audit_edit" ToRole="V_Empdata" />
         </EntityType>
         <EntityType Name="budget_plan">
           <Key>
@@ -137,6 +236,7 @@
           <Property Name="prj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="budget" Type="Int32" />
           <Property Name="comt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PrjData" Relationship="Self.FK_budget_plan_PrjData" FromRole="budget_plan" ToRole="PrjData" />
         </EntityType>
         <EntityType Name="Login_auth">
           <Key>
@@ -154,6 +254,9 @@
           <Property Name="Year" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Month" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Week" Type="Int32" />
+          <NavigationProperty Name="PrjData" Relationship="Self.FK_PrjData_MonthData" FromRole="MonthData" ToRole="PrjData" />
+          <NavigationProperty Name="PrjData1" Relationship="Self.FK_PrjData_MonthData1" FromRole="MonthData" ToRole="PrjData" />
+          <NavigationProperty Name="Worksheet" Relationship="Self.FK_Worksheet_MonthData" FromRole="MonthData" ToRole="Worksheet" />
         </EntityType>
         <EntityType Name="PrjData">
           <Key>
@@ -166,6 +269,11 @@
           <Property Name="PrjEnd" Type="Int32" />
           <Property Name="Editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="audit_edit" Relationship="Self.FK_audit_edit_PrjData" FromRole="PrjData" ToRole="audit_edit" />
+          <NavigationProperty Name="budget_plan" Relationship="Self.FK_budget_plan_PrjData" FromRole="PrjData" ToRole="budget_plan" />
+          <NavigationProperty Name="MonthData" Relationship="Self.FK_PrjData_MonthData" FromRole="PrjData" ToRole="MonthData" />
+          <NavigationProperty Name="MonthData1" Relationship="Self.FK_PrjData_MonthData1" FromRole="PrjData" ToRole="MonthData" />
+          <NavigationProperty Name="Worksheet" Relationship="Self.FK_Worksheet_PrjData" FromRole="PrjData" ToRole="Worksheet" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -187,6 +295,8 @@
           <Property Name="Month" Type="Int32" />
           <Property Name="Hour" Type="Int32" />
           <Property Name="Editor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MonthData" Relationship="Self.FK_Worksheet_MonthData" FromRole="Worksheet" ToRole="MonthData" />
+          <NavigationProperty Name="PrjData" Relationship="Self.FK_Worksheet_PrjData" FromRole="Worksheet" ToRole="PrjData" />
         </EntityType>
         <EntityType Name="V_Empdata">
           <Key>
@@ -200,8 +310,82 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="audit_edit" Relationship="WorkloadModel.V_Empdataaudit_edit" FromRole="V_Empdata" ToRole="audit_edit" />
+          <NavigationProperty Name="audit_edit1" Relationship="WorkloadModel.V_Empdataaudit_edit1" FromRole="V_Empdata" ToRole="audit_edit" />
         </EntityType>
-        <EntityContainer Name="WorkloadEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_audit_edit_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="audit_edit" Type="Self.audit_edit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="audit_edit">
+              <PropertyRef Name="prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_budget_plan_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="budget_plan" Type="Self.budget_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="budget_plan">
+              <PropertyRef Name="prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjData_MonthData">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="PrjData">
+              <PropertyRef Name="PrjStart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjData_MonthData1">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="PrjData">
+              <PropertyRef Name="PrjEnd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worksheet_MonthData">
+          <End Role="MonthData" Type="Self.MonthData" Multiplicity="0..1" />
+          <End Role="Worksheet" Type="Self.Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthData">
+              <PropertyRef Name="MonthPK" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Month" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worksheet_PrjData">
+          <End Role="PrjData" Type="Self.PrjData" Multiplicity="0..1" />
+          <End Role="Worksheet" Type="Self.Worksheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjData">
+              <PropertyRef Name="PrjNo" />
+            </Principal>
+            <Dependent Role="Worksheet">
+              <PropertyRef Name="Prj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WorkloadEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="audit_edit" EntityType="Self.audit_edit" />
           <EntitySet Name="budget_plan" EntityType="Self.budget_plan" />
           <EntitySet Name="Login_auth" EntityType="Self.Login_auth" />
@@ -210,13 +394,69 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Worksheet" EntityType="Self.Worksheet" />
           <EntitySet Name="V_Empdata" EntityType="Self.V_Empdata" />
+          <AssociationSet Name="FK_audit_edit_PrjData" Association="Self.FK_audit_edit_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="audit_edit" EntitySet="audit_edit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_budget_plan_PrjData" Association="Self.FK_budget_plan_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="budget_plan" EntitySet="budget_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjData_MonthData" Association="Self.FK_PrjData_MonthData">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="PrjData" EntitySet="PrjData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjData_MonthData1" Association="Self.FK_PrjData_MonthData1">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="PrjData" EntitySet="PrjData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worksheet_MonthData" Association="Self.FK_Worksheet_MonthData">
+            <End Role="MonthData" EntitySet="MonthData" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worksheet_PrjData" Association="Self.FK_Worksheet_PrjData">
+            <End Role="PrjData" EntitySet="PrjData" />
+            <End Role="Worksheet" EntitySet="Worksheet" />
+          </AssociationSet>
+          <AssociationSet Name="V_Empdataaudit_edit" Association="WorkloadModel.V_Empdataaudit_edit">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="audit_edit" EntitySet="audit_edit" />
+          </AssociationSet>
+          <AssociationSet Name="V_Empdataaudit_edit1" Association="WorkloadModel.V_Empdataaudit_edit1">
+            <End Role="V_Empdata" EntitySet="V_Empdata" />
+            <End Role="audit_edit" EntitySet="audit_edit" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="V_Empdataaudit_edit">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.audit_edit" Role="audit_edit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="audit_edit">
+              <PropertyRef Name="editor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="V_Empdataaudit_edit1">
+          <End Type="WorkloadModel.V_Empdata" Role="V_Empdata" Multiplicity="0..1" />
+          <End Type="WorkloadModel.audit_edit" Role="audit_edit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="V_Empdata">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="audit_edit">
+              <PropertyRef Name="staff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WorkloadModelStoreContainer" CdmEntityContainer="WorkloadEntities">
+        <EntityContainerMapping StorageEntityContainer="WorkloadModelStoreContainer" CdmEntityContainer="WorkloadEntities1">
           <EntitySetMapping Name="audit_edit">
             <EntityTypeMapping TypeName="WorkloadModel.audit_edit">
               <MappingFragment StoreEntitySet="audit_edit">
