@@ -171,9 +171,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PrjDatasController.cs" />
+    <Compile Include="Controllers\WorksheetsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -386,9 +388,16 @@
     <Content Include="Views\PrjDatas\Details.cshtml" />
     <Content Include="Views\PrjDatas\Edit.cshtml" />
     <Content Include="Views\PrjDatas\Index.cshtml" />
+    <Content Include="Views\Worksheets\Create.cshtml" />
+    <Content Include="Views\Worksheets\Delete.cshtml" />
+    <Content Include="Views\Worksheets\Details.cshtml" />
+    <Content Include="Views\Worksheets\Edit.cshtml" />
+    <Content Include="Views\Worksheets\Index.cshtml" />
+    <Content Include="Views\Worksheets\WorkloadDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

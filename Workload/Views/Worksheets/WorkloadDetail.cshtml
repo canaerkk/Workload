@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Workload.Models.Worksheet>
+
+@{
+    var YearList = ViewData["YearData"];
+    var MonthList = ViewData["MonthData"];
+    var Emp = ViewData["Emp"];
+    <table class="table">
+        <thead>
+            <tr>
+                <th rowspan="2">
+                    Employee Name
+                </th>
+                @foreach (var item in (List<Workload.Models.Worksheet>)YearList)
+                {
+                    <th>
+                        @item.MonthData.Year
+                    </th>
+                }
+            </tr>
+            <tr>
+
+                @foreach (var c in (List<Workload.Models.Worksheet>)MonthList)
+                {
+                    <th>
+                        @c.MonthData.Month
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in (List<Workload.Models.Worksheet>)Emp)
+            {
+                <tr>
+                    <td>
+                        @emp.V_Empdata1.EN_Name
+                    </td>
+                    @foreach (var m in Model)
+                    {
+                        if (m.V_Empdata1.EmpID == emp.V_Empdata1.EmpID)
+                        {
+                            <td>
+                                @m.Hour
+                            </td>
+                        }
+                    }
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

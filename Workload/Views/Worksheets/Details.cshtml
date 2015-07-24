@@ -1,0 +1,58 @@
+﻿@model Workload.Models.Worksheet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Worksheet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonthData.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonthData.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrjData.PrjE1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrjData.PrjE1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.V_Empdata.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.V_Empdata.Unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.V_Empdata1.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.V_Empdata1.Unit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WorkID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

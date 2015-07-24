@@ -10,14 +10,14 @@ using Workload.Models;
 
 namespace Workload.Controllers
 {
-    public class PrjDatasController : Controller
+    public class PrjDatasController : BaseController
     {
-        private WorkloadEntities1 db = new WorkloadEntities1();
 
         // GET: PrjDatas
         public ActionResult Index()
         {
             var prjData = db.PrjData.Include(p => p.MonthData).Include(p => p.MonthData1).Include(p => p.V_Empdata);
+
             return View(prjData.ToList());
         }
 

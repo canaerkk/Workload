@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Workload.Models.Worksheet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Hour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonthData.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrjData.PrjNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.V_Empdata.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.V_Empdata1.Unit)
+        </th>
+        <th></th>
+    </tr>
+  
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonthData.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrjData.PrjNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.V_Empdata.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.V_Empdata1.Unit)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WorkID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WorkID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WorkID })
+        </td>
+    </tr>
+}
+
+</table>
