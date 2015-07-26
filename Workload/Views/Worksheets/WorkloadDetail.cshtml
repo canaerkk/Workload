@@ -4,11 +4,11 @@
     var YearList = ViewData["YearData"];
     var MonthList = ViewData["MonthData"];
     var Emp = ViewData["Emp"];
-    var data = Model.ToArray();
     }
         
 @using (Html.BeginForm())
 {
+    var data = Model.ToArray();
     
 
     <table class="table">
@@ -35,6 +35,7 @@
                 }
             </tr>
         </thead>
+
         <tbody>
             @foreach (var emp in (List<Workload.Models.Worksheet>)Emp)
             {
@@ -42,16 +43,18 @@
                     <td>
                         @emp.V_Empdata1.EN_Name
                     </td>
+
                     @for (int i = 0; i < data.Length; i++)
                     {
                         var item = data[i];
-                        
-                        if(item.V_Empdata1.EmpID==emp.V_Empdata1.EmpID)
+
+                        if (item.V_Empdata1.EmpID == emp.V_Empdata1.EmpID)
                         //if (m.V_Empdata1.EmpID == emp.V_Empdata1.EmpID)
                         {
                             <td>
-                                <text>@Html.EditorFor(modelItem=>item.Hour)</text>
-                               @* <text id="@(m.V_Empdata1.EmpID)_@(m.MonthData.MonthPK)">@m.Hour</text>*@
+                                <text>@Html.EditorFor(modelItem => data[i].Hour)</text>
+                                @* <text id="@(m.V_Empdata1.EmpID)_@(m.MonthData.MonthPK)">@m.Hour</text>*@
+                                @Html.HiddenFor(modelItem=>data[i].WorkID)
                             </td>
                         }
                     }

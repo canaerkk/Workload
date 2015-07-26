@@ -33,10 +33,14 @@ namespace Workload.Controllers
             {
                 foreach (var item in data)
                 {
-                    db.Worksheet.Find(item.WorksheetID).Hour = item.Hour;
+                    db.Worksheet.Find(item.WorkID).Hour = item.Hour;
                 }
             }
             db.SaveChanges();
+            ViewData["YearData"] = WorkRepo.GroupByYear(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["MonthData"] = WorkRepo.GroupByMonth(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["Emp"] = WorkRepo.GroupByEmp(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["Editor"] = WorkRepo.GroupByEditor(WorkRepo.GetByPrj(id)).ToList();
             var worksheet = WorkRepo.GetByPrj(id);
             return View(worksheet.ToList());
         }

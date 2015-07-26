@@ -7,8 +7,8 @@ namespace Workload.Models
 {
     public class UpdateHour
     {
-        
-        public int WorksheetID { get; set; }
+
+        public int WorkID { get; set; }
         public Nullable<int> Hour { get; set; }
 
     }
