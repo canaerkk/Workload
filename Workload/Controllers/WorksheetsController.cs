@@ -21,18 +21,34 @@ namespace Workload.Controllers
         {
             //var worksheet = db.Worksheet.Include(w => w.MonthData).Include(w => w.PrjData).Include(w => w.V_Empdata).Include(w => w.V_Empdata1)
             //    .Where(p=>p.Prj==id);
-            var worksheet = WorkRepo.GetPrj(id);
+            var worksheet = WorkRepo.GetByPrj(id);
             return View(worksheet.ToList());
         }
-        
+        [HttpPost]
+        public ActionResult WorkloadDetail(List<UpdateHour>data, string id)
+        {
+            //var worksheet = db.Worksheet.Include(w => w.MonthData).Include(w => w.PrjData).Include(w => w.V_Empdata).Include(w => w.V_Empdata1)
+            //    .Where(p=>p.Prj==id);
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    db.Worksheet.Find(item.WorksheetID).Hour = item.Hour;
+                }
+            }
+            db.SaveChanges();
+            var worksheet = WorkRepo.GetByPrj(id);
+            return View(worksheet.ToList());
+        }
         //[ChildActionOnly]
         public ActionResult WorkloadDetail(string id)
         {
-            ViewData["YearData"] = WorkRepo.GetYear(id).ToList();
-            ViewData["MonthData"] = WorkRepo.GetMonth(id).ToList();
-            ViewData["Emp"] = WorkRepo.GetEmp(id).ToList();
-            ViewData["Editor"] = WorkRepo.GetEditor(id).ToList();
-            var workload = WorkRepo.GetPrj(id).OrderByDescending(p=>p.V_Empdata.EmpID);
+            ViewData["YearData"] = WorkRepo.GroupByYear(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["MonthData"] = WorkRepo.GroupByMonth(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["Emp"] = WorkRepo.GroupByEmp(WorkRepo.GetByPrj(id)).ToList();
+            ViewData["Editor"] = WorkRepo.GroupByEditor(WorkRepo.GetByPrj(id)).ToList();
+
+            var workload = WorkRepo.GetByPrj(id).OrderByDescending(p=>p.V_Empdata.EmpID);
             return View(workload.ToList());
         }
 

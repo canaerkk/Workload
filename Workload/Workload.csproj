@@ -261,6 +261,7 @@
     <Compile Include="Models\sysdiagramsRepository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UpdateHour.cs" />
     <Compile Include="Models\V_Empdata.cs">
       <DependentUpon>Workload.tt</DependentUpon>
     </Compile>
